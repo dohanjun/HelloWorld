@@ -17,20 +17,21 @@ public class IntExe2 {
 			System.out.println(++b1);
 		}
 		
-		long l1 = 100000000000L;
-		
-		// 실수형타입 => float(4바이트), double(8바이트)
-		
-		double d1 = 0.1;
-		double d2 = 0.2;
-		double result3 = d1 + d2;
-		result3 = 0.2345162;
-		System.out.println(Math.floor(result3 * 100 ) / 100);
-		
-		double[] doubleAry = {10, 23.4, 11.7, 34.5};
-		
-		double sum = doubleAry[0] + doubleAry[1] + doubleAry[2] + doubleAry[3];
-		
-		System.out.println(sum);
-	}
+//		long l1 = 100000000000L;
+//		
+//		// 실수형타입 => float(4바이트), double(8바이트)
+//		
+//		double d1 = 0.1;
+//		double d2 = 0.2;
+//		double result3 = d1 + d2;
+//		result3 = 0.2345162;
+//		System.out.println(Math.floor(result3 * 100 ) / 100);
+//		
+//		double[] doubleAry = {10, 23.4, 11.7, 34.5};
+//		
+//		double sum = doubleAry[0] + doubleAry[1] + doubleAry[2] + doubleAry[3];
+//		
+//		System.out.println(sum);
+//	}
+}
 }
