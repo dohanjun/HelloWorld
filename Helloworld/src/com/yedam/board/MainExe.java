@@ -32,8 +32,8 @@ public class MainExe {
 				String name = scn.nextLine();
 				System.out.println("회원연락처를 입력하세요.");
 				String phone = scn.nextLine();
-
-				boolean result = mexe.addMember(new Member(id, pw, name, phone));
+				
+				boolean result = MemberExe.addMember(new Member(id, pw, name, phone, new Date() ));
 				if (result) {
 					System.out.println("정상적으로 등록되었습니다.");
 				} else {

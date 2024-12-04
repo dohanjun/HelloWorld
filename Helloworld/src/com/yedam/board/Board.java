@@ -60,7 +60,7 @@ public class Board {
 		return writeDate;
 	}
 	public String showInfo() {
-	String yyyymmddString = ((writeDate.getYear()+1900) +  "년" + (writeDate.getMonth()+1) + "월" + writeDate.getDay() + "일");
+	String yyyymmddString = ((writeDate.getYear()+1900) +  "년" + (writeDate.getMonth()+1) + "월" + writeDate.getDate() + "일");
 		return " " + boardNo + "  " + title + "  " + content + "  " + writer + "  " + yyyymmddString + " ";
 	}
 }
