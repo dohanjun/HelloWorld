@@ -1,23 +1,31 @@
 package com.yedam.api;
 
 import java.util.Calendar;
+import java.util.Scanner;
 
 public class CalendarExe {
 
 	public static void main(String[] args) {
-		Calendar cal = Calendar.getInstance();
-		cal.set(2024,1,1);
-		System.out.println(cal.get(Calendar.DAY_OF_WEEK)+"요일");
-		System.out.println(cal.getActualMaximum(Calendar.DATE)+ "막날");
-		
-//		createCalendar(6, 30);
+		Scanner scn = new Scanner(System.in);
+		System.out.println("년도를 입력하세요");
+		int year = scn.nextInt();
+		System.out.println("월을 입력하세요");
+		int month = scn.nextInt();
+		createCalendar(year, month);
 	}
 
 	
 	// 1일의 요일이 무슨요일인지, 마지막날이 몇일인지 알면 달력생성가능
 	
 	static void createCalendar(int year, int month) {
-		String[] days = {"Sum","Mon","Tue","Wed","Thr","Fri","Sat"};
+		 Calendar cal = Calendar.getInstance();
+		 cal.set(year,month,1);// 2024년 2월 1일
+		 // cal.set(year, month, day)
+		
+		 int positionOfDay = cal.get(Calendar.DAY_OF_WEEK);
+		 int lastDate = cal.getActualMaximum(Calendar.DATE);
+					  //{  0     1     2     3    4     5     6}
+		String[] days = {"Sun","Mon","Tue","Wed","Thr","Fri","Sat"};
 		
 		for(String day : days) {
 			System.out.printf("%4s", day);
