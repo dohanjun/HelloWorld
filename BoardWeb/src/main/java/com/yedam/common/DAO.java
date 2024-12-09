@@ -1,4 +1,4 @@
-package com.yedam.jdbc.student;
+package com.yedam.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,18 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/*
- * db connect, db close.
- * DAP 상속.
- */
 public class DAO {
+
 	// 쿼리실행을 위한 필드 선언.
 	public Connection conn = null;
 	public PreparedStatement psmt;
 	public ResultSet rs;
 
 	// 연결해제.
-
 
 	public Connection getConn() {
 
