@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * DAP 상속.
  */
 public class DAO {
-	// 뭐리실행을 위한 필드 선언.
+	// 쿼리실행을 위한 필드 선언.
 	Connection conn = null;
 	PreparedStatement psmt;
 	ResultSet rs;

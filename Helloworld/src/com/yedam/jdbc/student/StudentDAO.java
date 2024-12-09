@@ -12,6 +12,46 @@ import java.util.ArrayList;
  */
 public class StudentDAO extends DAO {
 
+	
+	//login() => 반환:boolean, 매개값: id, password
+	public boolean login(String asid, String pw) {
+		getConn();
+		String sql = "select * from tbl_member where member_id = ? and password = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1,asid);
+			psmt.setString(2, pw);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return false;
+
+	}
+	
+	public boolean deleteStudent(Student dstd) {
+		getConn();
+		String sql = "delete tbl_student \r\n"
+				+ "where std_no like '%001%';";
+		try {
+			psmt = conn.prepareStatement(sql);
+			int r = psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}return false;
+	}
+	
 	// 등록. 반환:boolean, 매개:Student, 메소드: updateStudent
 	public boolean updateStudent (Student std) {
 		getConn();
@@ -44,6 +84,7 @@ public class StudentDAO extends DAO {
 		String sql = "select * from tbl_studen where std_no = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, stdNo);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				Student std = new Student();
@@ -62,7 +103,7 @@ public class StudentDAO extends DAO {
 			disConnect();
 		}
 		
-		
+		return null;
 	}
 	
 	
@@ -89,14 +130,33 @@ public class StudentDAO extends DAO {
 	}
 
 	// 학생목록.
-	public ArrayList<Student> studentList() {
+	public ArrayList<Student> studentList(Search search) {
 		getConn();
 		// 조회결과를 반환
 		ArrayList<Student> studList = new ArrayList<Student>();
 
-		String sql = "select * from tbl_student";
+		String sql = "select std_no,"
+				+ " std_name,"
+				+ " eng_score,"
+				+ " math_score,"
+				+ " std_phone,"
+//				+ " to_char(creation_date, 'yyyy-mm-dd hh24:mi:ss') creation_date"//
+				+ " creation_date"
+				+ "   from tbl_student "
+				+ "   where std_name like '%'||?||'%' and std_phone like '%'||?||'%'"
+				+ "   and eng_score >= ? ";//
+//				+ "   order by = ? ";
+		if(search.getOrderBy().equals("std_no")) {
+			sql += "order by std_no";
+		}else if (search.getOrderBy().equals("std_name")) {
+			sql += " order by std_name";
+		}
+		
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, search.getName());
+			psmt.setString(2, search.getPhone());
+			psmt.setInt(3, search.getEngScore());
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
@@ -106,7 +166,7 @@ public class StudentDAO extends DAO {
 				stud.setEngScore(rs.getInt("eng_score"));
 				stud.setMathScore(rs.getInt("math_score"));
 				stud.setStdPhone(rs.getString("std_phone"));
-
+				stud.setCreationDate(rs.getDate("creation_date"));
 				studList.add(stud);
 
 			}
