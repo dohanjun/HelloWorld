@@ -8,13 +8,38 @@ import java.util.List;
 import com.yedam.common.DAO;
 import com.yedam.vo.BoardVO;
 
-public class BoardDAO extends DAO{
-	
+public class BoardDAO extends DAO {
+
+	// 수정.
+	public boolean updateBoard(BoardVO board) {
+		getConn();
+		System.out.println(board.getTitle() + board.getContent() + board.getWriter());
+		String sql = "update tbl_board" //
+				+ "   set    title = ?"//
+				+ "         ,content = ?" //
+				+ "   where board_no = ?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, board.getTitle());
+			psmt.setString(2, board.getContent());
+			psmt.setInt(3, board.getBoardNo());
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	// 상세조회.
 	public BoardVO selectBoard(int boardNo) {
 		getConn();
 		String sql = "select * from tbl_board where board_no = ? ";
-	
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, boardNo);
@@ -23,7 +48,6 @@ public class BoardDAO extends DAO{
 			while (rs.next()) {
 				BoardVO bVo = new BoardVO();
 
-				
 				bVo.setBoardNo(rs.getInt("board_no"));
 				bVo.setTitle(rs.getString("title"));
 				bVo.setContent(rs.getString("content"));
@@ -42,11 +66,11 @@ public class BoardDAO extends DAO{
 		return null;
 
 	}
-	
 
 	// BoardVO 파라미터 => 등록.
 	public boolean insertBoard(BoardVO board) {
 		getConn();
+		System.out.println(board.getTitle() + board.getContent() + board.getWriter());
 		String sql = "insert into tbl_board" + "(board_no, title, content, writer)"
 				+ "values(board_seq.nextval, ?, ?, ?)";
 
@@ -66,19 +90,17 @@ public class BoardDAO extends DAO{
 		return false;
 
 	}
-	
-	
+
 	// 목록.
-	public List<BoardVO> boardList(){
+	public List<BoardVO> boardList() {
 		getConn();
 		String sql = "select * from tbl_board order by board_no";
 		List<BoardVO> result = new ArrayList<>();
-		
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
+
 			while (rs.next()) {
 				BoardVO brd = new BoardVO();
 				brd.setBoardNo(rs.getInt("board_no"));
@@ -87,11 +109,11 @@ public class BoardDAO extends DAO{
 				brd.setWriter(rs.getString("writer"));
 				brd.setCreationDate(rs.getDate("creation_date"));
 				brd.setUpdateDate(rs.getDate("update_date"));
-				
+
 				result.add(brd);
-				
+
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disConnect();
