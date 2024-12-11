@@ -39,7 +39,7 @@ BoardVO bdao = (BoardVO) request.getAttribute("board");
 		</tr>
 		<tr>
 			<td colspan="4" align="center"><input type="submit"
-				class="btn btn-warning" value="저장"></td>
+				class="btn btn-warning" value="저장" ></td>
 		</tr>
 	</table>
 </form>
