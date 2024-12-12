@@ -45,7 +45,8 @@ public class BoardDAO extends DAO {
 				} else if (search.getSearchCondition().equals("W")) {
 					sql += "            where writer like '%'||?||'%'";
 				} else if (search.getSearchCondition().equals("TW")) {
-					sql += "            where title like '%'||?||'%' or like '%'||?||'%'";
+					sql += "            where title like '%'||?||'%' "
+							+ "            or writer like '%'||?||'%'";
 				}		}
 		
 
@@ -58,8 +59,8 @@ public class BoardDAO extends DAO {
 				} else if (search.getSearchCondition().equals("W")) {
 					psmt.setString(cnt++, search.getKeyword());
 				} else if (search.getSearchCondition().equals("TW")) {
-					psmt.setInt(cnt++, search.getPage());
-					psmt.setInt(cnt++, search.getPage());
+					psmt.setString(cnt++, search.getKeyword());
+					psmt.setString(cnt++, search.getKeyword());
 				}
 			}
 			rs = psmt.executeQuery();
@@ -170,7 +171,7 @@ public class BoardDAO extends DAO {
 			} else if (search.getSearchCondition().equals("W")) {
 				sql += "            where writer like '%'||?||'%'";
 			} else if (search.getSearchCondition().equals("TW")) {
-				sql += "            where title like '%'||?||'%' or like '%'||?||'%'";
+				sql += "            where title like '%'||?||'%' or writer like '%'||?||'%'";
 			}		}
 		
 		sql += "                 order by board_no desc) a)  b "//
@@ -187,8 +188,8 @@ public class BoardDAO extends DAO {
 				} else if (search.getSearchCondition().equals("W")) {
 					psmt.setString(cnt++, search.getKeyword());
 				} else if (search.getSearchCondition().equals("TW")) {
-					psmt.setInt(cnt++, search.getPage());
-					psmt.setInt(cnt++, search.getPage());
+					psmt.setString(cnt++, search.getKeyword());
+					psmt.setString(cnt++, search.getKeyword());
 				}
 			}
 			

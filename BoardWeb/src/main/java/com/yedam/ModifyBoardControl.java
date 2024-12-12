@@ -2,13 +2,13 @@ package com.yedam;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.yedam.common.Control;
 import com.yedam.jdbc.BoardDAO;
 import com.yedam.vo.BoardVO;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class ModifyBoardControl implements Control {
 
@@ -18,23 +18,27 @@ public class ModifyBoardControl implements Control {
 		// 정상적으로 수정이 완료되면 목록으로 이동
 		// 수정에러가 발생하면 수정화면으로 이동.
 
-		String bno = req.getParameter("board_no");
+		String bno = req.getParameter("board");
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-
+		String page = req.getParameter("page");
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+		System.out.println(page + sc+kw);
 		BoardVO board = new BoardVO();
 		board.setBoardNo(Integer.parseInt(bno));
 		board.setTitle(title);
 		board.setContent(content);
 
+	
 		BoardDAO bdao = new BoardDAO();
 
 		if (bdao.updateBoard(board)) {
 
-			resp.sendRedirect("boardList.do");
+			resp.sendRedirect("boardList.do?page="+page+"&searchCondition="+sc+"&keyword="+kw);
 		} else {
 
-			req.getRequestDispatcher("html/modifyForm.jsp").forward(req, resp);
+			req.getRequestDispatcher("WEB-INF/html/modifyForm.jsp").forward(req, resp);
 		}
 	}
 
