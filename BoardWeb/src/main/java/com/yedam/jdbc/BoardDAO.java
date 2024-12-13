@@ -121,6 +121,7 @@ public class BoardDAO extends DAO {
 				bVo.setViewCnt(rs.getInt("view_cnt"));
 				bVo.setCreationDate(rs.getDate("creation_date"));
 				bVo.setUpdateDate(rs.getDate("update_date"));
+				bVo.setImg(rs.getString("img"));
 
 				return bVo;
 			}
@@ -136,15 +137,15 @@ public class BoardDAO extends DAO {
 	// BoardVO 파라미터 => 등록.
 	public boolean insertBoard(BoardVO board) {
 		getConn();
-		System.out.println(board.getTitle() + board.getContent() + board.getWriter());
-		String sql = "insert into tbl_board" + "(board_no, title, content, writer)"
-				+ "values(board_seq.nextval, ?, ?, ?)";
+		String sql = "insert into tbl_board" + "(board_no, title, content, writer, img)"
+				+ "values(board_seq.nextval, ?, ?, ?, ?)";
 
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, board.getTitle());
 			psmt.setString(2, board.getContent());
 			psmt.setString(3, board.getWriter());
+			psmt.setString(4, board.getImg());
 			int r = psmt.executeUpdate();
 			if (r > 0) {
 				return true;

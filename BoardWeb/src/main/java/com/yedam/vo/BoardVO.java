@@ -21,7 +21,7 @@ import lombok.ToString;
 //@Data
 public class BoardVO {
 	private int boardNo, viewCnt;
-	private String title, content, writer;
+	private String title, content, writer, img;
 	private Date creationDate, updateDate;
 	
 	

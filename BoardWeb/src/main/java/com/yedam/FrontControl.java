@@ -51,6 +51,10 @@ public class FrontControl extends HttpServlet{
 		map.put("/login.do", new LoginControl());
 		//로그아웃
 		map.put("/logout.do", new LogoutControl());
+		
+		map.put("/replyList.do", new ReplyListControl());
+		map.put("/removeReply.do", new RemoveReplyControl());
+		map.put("/addReply.do", new AddReplyControl());
 	}
 
 	@Override

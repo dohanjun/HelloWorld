@@ -6,7 +6,7 @@
 
 <h3>게시글 등록화면(boardForm.jsp)</h3>
 <input type="hidden" name="logId" value="${logId }">
-<form action="board.do" method="post">
+<form action="board.do" method="post" enctype="multipart/form-data">
 	<table class="table">
 		<tr>
 			<th>제목</th>
@@ -19,6 +19,10 @@
 		<tr>
 			<th>작성자</th>
 			<td><input type="text" name="writer" value="${logId }"></td>
+		</tr>	
+		<tr>
+			<th>이미지</th>
+			<td><input type="file" name="img" class="form-control" ></td>
 		</tr>	
 		<tr>
 			<th colspan="2" align="center"></th>
