@@ -14,9 +14,12 @@ import com.yedam.common.Control;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardFormControl;
 import com.yedam.control.BoardListControl;
+import com.yedam.control.ChartControl;
+import com.yedam.control.FullCalendarControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
+import com.yedam.control.chartDataContyol;
 /*
  * url pattern에서 ~~~~???.do => FrontControl을 실행.
  * 
@@ -52,9 +55,18 @@ public class FrontControl extends HttpServlet{
 		//로그아웃
 		map.put("/logout.do", new LogoutControl());
 		
-		map.put("/replyList.do", new ReplyListControl());
-		map.put("/removeReply.do", new RemoveReplyControl());
-		map.put("/addReply.do", new AddReplyControl());
+		map.put("/replyList.do", new ReplyListControl()); // 댓글목록
+		map.put("/removeReply.do", new RemoveReplyControl()); // 댓글삭제
+		map.put("/addReply.do", new AddReplyControl()); // 댓글등록
+		map.put("/getCount.do", new GetReplyCountControl());
+		
+		//구글차트
+		map.put("/chart.do", new ChartControl());
+		map.put("/chartData.do", new chartDataContyol());
+		
+		//fullcalendat
+		map.put("/full.do", new FullCalendarControl());
+		
 	}
 
 	@Override
